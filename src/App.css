@@ -1,38 +1,49 @@
-.App {
-  text-align: center;
+/* App.css */
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+a {
+  color: inherit;
+  text-decoration: none;
+  margin: 0 10px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.container {
+  padding: 20px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Bookshelf CSS */
+.bookshelf {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding-bottom: 20px;
 }
 
-.App-link {
-  color: #61dafb;
+.bookshelf::after {
+  content: '';
+  flex: auto;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.bookshelf-item {
+  width: 150px;
+  margin-bottom: 40px; /* Adjust as needed */
+}
+
+.book-cover {
+  height: 200px; /* Adjust based on actual cover sizes */
+  object-fit: cover;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border-radius: 4px;
+}
+
+.shelf {
+  height: 20px;
+  background-color: #8b4513; /* Or any color you prefer for the shelf */
+  margin-top: -20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
