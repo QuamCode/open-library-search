@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { TextField, Button, Box } from '@mui/material';
+import { TextField, Button, Box, InputAdornment } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
 
 function SearchForm({ onSearch }) {
   const [searchTerm, setSearchTerm] = useState('');
@@ -17,6 +18,13 @@ function SearchForm({ onSearch }) {
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
         fullWidth
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <SearchIcon />
+            </InputAdornment>
+          ),
+        }}
       />
       <Button variant="contained" type="submit">Search</Button>
     </Box>

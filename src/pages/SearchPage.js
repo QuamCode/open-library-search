@@ -1,18 +1,15 @@
-
-
-
-
-
 import React, { useState } from 'react';
 import SearchForm from '../components/SearchForm';
 import BookDisplay from '../components/BookDisplay';
-import { Box, CircularProgress, Typography } from '@mui/material';
+import { Box, CircularProgress, Typography, Grid, Pagination } from '@mui/material';
 import axios from 'axios';
 
 function SearchPage({ library, setLibrary }) {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [booksPerPage] = useState(10); // Number of results per page
 
     const isValidISBN = (isbn) => {
       return /^(97(8|9))?\d{9}(\d|X)$/.test(isbn);
@@ -84,25 +81,43 @@ function SearchPage({ library, setLibrary }) {
     };
 
     const addToLibrary = (book) => {
-      if (!library.some(libBook => libBook.isbn === book.isbn)) {
-        setLibrary([...library, book]);
-      } else {
-        alert("This book is already in your library.");
-      }
-    };
+        if (!library.some(libBook => libBook.isbn === book.isbn)) {
+          setLibrary([...library, book]);
+        } else {
+          alert("This book is already in your library.");
+        }
+      };
 
-  return (
-    <div>
-      <SearchForm onSearch={handleSearch} />
-      {loading && <CircularProgress />}
-      {errorMessage && <Typography color="error">{errorMessage}</Typography>}
-      <Box sx={{ my: 2 }}>
-        {books.slice(0, 10).map((book, index) => (
-          <BookDisplay key={index} book={book} onAddToLibrary={() => addToLibrary(book, setLibrary, library)} />
-        ))}
-      </Box>
-    </div>
-  );
-}
+      const indexOfLastBook = currentPage * booksPerPage;
+      const indexOfFirstBook = indexOfLastBook - booksPerPage;
+      const currentBooks = books.slice(indexOfFirstBook, indexOfLastBook);
 
-export default SearchPage;
+      const paginate = (event, value) => {
+        setCurrentPage(value);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      };
+
+      return (
+        <div>
+          <SearchForm onSearch={handleSearch} />
+          {loading && <CircularProgress sx={{ display: 'block', margin: 'auto', my: 2 }} />}
+          {errorMessage && <Typography color="error" sx={{ my: 2 }}>{errorMessage}</Typography>}
+          <Grid container spacing={2} sx={{ my: 2 }}>
+            {currentBooks.map((book, index) => (
+              <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
+                <BookDisplay book={book} onAddToLibrary={() => addToLibrary(book, setLibrary, library)} />
+              </Grid>
+            ))}
+          </Grid>
+          <Pagination
+            count={Math.ceil(books.length / booksPerPage)}
+            page={currentPage}
+            onChange={paginate}
+            color="primary"
+            sx={{ display: 'flex', justifyContent: 'center', my: 2 }}
+          />
+        </div>
+      );
+    }
+
+    export default SearchPage;
