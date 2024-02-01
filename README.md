@@ -1,4 +1,21 @@
-# Getting Started with Create React App
+# Book Scanning Project
+
+This project is a React-based web application designed for efficiently scanning and managing a personal library of books. It utilizes the Open Library API to fetch book information either by title search or ISBN, offering users an intuitive interface to build and maintain their book collection.
+
+## Features
+
+- **Book Search**: Users can search for books by title or ISBN.
+- **Book Details**: Display detailed information about each book, including cover image, authors, publication date, and more.
+- **Personal Library**: Users can add books to their personal library and view them in a visually appealing bookshelf format.
+- **Pagination**: Supports numbered pagination for search results.
+- **Responsive Design**: The application is fully responsive, providing a seamless experience across various devices.
+
+## Technologies Used
+
+- React
+- Material-UI
+- Axios for API requests
+- React Router for page navigation
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
